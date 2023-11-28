@@ -22,11 +22,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fire, 100)
     info.changeScoreBy(1)
+    music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.UntilDone)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fountain, 100)
     scene.cameraShake(4, 500)
     info.changeLifeBy(-1)
+    music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.UntilDone)
 })
 let bogey: Sprite = null
 let projectile: Sprite = null
@@ -52,6 +54,7 @@ spacePlane = sprites.create(img`
 controller.moveSprite(spacePlane, 200, 200)
 spacePlane.setStayInScreen(true)
 info.setLife(3)
+music.setVolume(255)
 game.onUpdateInterval(1000, function () {
     bogey = sprites.create(img`
         . . . . f f f f f . . . . . . . 
